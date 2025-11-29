@@ -9,6 +9,7 @@ class Cazador:
         self.vivo = True
         self.contador_movimiento = 0
         self.tiempo_muerte = 0
+        self.huir = False
     
     def mover(self, jugador_fila, jugador_columna, mapa):
         if not self.vivo:
@@ -39,7 +40,8 @@ class Cazador:
                 movimientos_validos.append((distancia, df, dc))
         
         if movimientos_validos:
-            movimientos_validos.sort(key=lambda x: x[0])
-            return movimientos_validos[0][1], movimientos_validos[0][2]
+            movimientos_validos.sort(key=lambda x: x[0], reverse=self.huir)
+            _, df, dc = movimientos_validos[0]
+            return df, dc
         
         return None
